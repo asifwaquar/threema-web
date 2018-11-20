@@ -44,6 +44,13 @@ jobs:
     environment:
       BUILDTARGET: build:uitests
       TESTTARGET: test:ui chrome
+  uitest-safari:
+    macos:
+      xcode: "10.1.0"
+    steps: *test-steps
+    environment:
+      BUILDTARGET: build:uitests
+      TESTTARGET: test:ui safari
   lint:
     docker:
       - image: circleci/node:8-browsers
@@ -63,4 +70,5 @@ workflows:
       - unittest-node10
       - uitest-firefox
       - uitest-chrome
+      - uitest-safari
       - lint
