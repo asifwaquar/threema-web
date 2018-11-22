@@ -6,10 +6,18 @@ references:
     - restore_cache:
         keys:
           - v2-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ arch }}-{{ checksum "package.json" }}
-    - run: npm install
-    - run: npm run build
-    - run: npm run ${BUILDTARGET}
-    - run: npm run ${TESTTARGET}
+    - run:
+        name: Install dependencies
+        command: npm install
+    - run:
+        name: Build
+        command: npm run build
+    - run:
+        name: Build tests
+        command: npm run ${BUILDTARGET}
+    - run:
+        name: Run tests
+        command: npm run ${TESTTARGET}
     - save_cache:
         key: v2-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ arch }}-{{ checksum "package.json" }}
         paths:
